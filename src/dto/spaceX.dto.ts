@@ -1,3 +1,17 @@
+export interface IQueryDto {
+  docs: ILaunchDto[];
+  totalDocs: number;
+  offset: number;
+  limit: number;
+  totalPages: number;
+  page: number;
+  pagingCounter: number;
+  hasPrevPage: boolean;
+  hasNextPage: boolean;
+  prevPage: number;
+  nextPage: number;
+}
+
 export interface ILaunchDto {
   id: string;
   name: string;

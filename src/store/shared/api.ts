@@ -11,3 +11,15 @@ export async function internalGet(url: string) {
     })
     .catch((err) => console.log(err));
 }
+
+export async function post(url: string, payload: any) {
+  return fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  })
+    .then((data) => data.json())
+    .catch((err) => {
+      console.log(err);
+    });
+}

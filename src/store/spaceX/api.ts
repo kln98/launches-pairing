@@ -1,14 +1,32 @@
-import { ICoreDto, IPayloadDto, ILaunchDto } from '../../dto/spaceX.dto';
-import { get } from '../shared/api';
+import { IQueryDto } from '../../dto/spaceX.dto';
+import { post } from '../shared/api';
 
-export async function getLaunchesApi() {
-  return await get('https://api.spacexdata.com/v5/launches').then((json: any) => json as ILaunchDto[]);
-}
-
-export async function getCoreApi(coreId: string) {
-  return await get('https://api.spacexdata.com/v4/cores/${coreId}').then((json: any) => json as ICoreDto);
-}
-
-export async function getPayloadApi(payloadId: string) {
-  return await get('https://api.spacexdata.com/v4/payloads/${payloadId}').then((json: any) => json as IPayloadDto);
+// Using the '/query' api call to retrieve first 10 launches
+// Don't need to set limit as default is 10
+// Removed Core and Payload api, we can use /query to populate UUIDs with the linked object
+// By using /query we can select required objects and reduce the amount of api calls needed
+export async function postLaunchesApi() {
+  return await post('https://api.spacexdata.com/v5/launches/query', {
+    query: {},
+    options: {
+      select: ['name', 'date_utc', 'links.patch.small', 'success', 'failures', 'details', 'cores', 'payloads'],
+      populate: [
+        {
+          path: 'payloads',
+          select: {
+            type: 1,
+          },
+        },
+        {
+          path: 'cores',
+          populate: [
+            {
+              path: 'core',
+              select: ['serial'],
+            },
+          ],
+        },
+      ],
+    },
+  }).then((json: any) => json as IQueryDto);
 }
