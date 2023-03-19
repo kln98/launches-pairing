@@ -16,20 +16,32 @@ export interface ILaunchDto {
   id: string;
   name: string;
   date_utc: string;
-  links: string[];
+  links: ILinkDto;
   success: boolean;
-  failures: string[];
+  failures: IFailureDto[];
   details: string;
   payloads: IPayloadDto[];
   cores: ICoreDto[];
 }
 
 export interface ICoreDto {
-  serial: string;
-  id: string;
+  core: {
+    serial: string;
+    id: string;
+  };
 }
 
 export interface IPayloadDto {
   type: string;
   id: string;
+}
+
+interface ILinkDto {
+  patch: {
+    small: string;
+  };
+}
+
+interface IFailureDto {
+  reason: string;
 }

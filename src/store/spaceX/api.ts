@@ -9,7 +9,7 @@ export async function postLaunchesApi() {
   return await post('https://api.spacexdata.com/v5/launches/query', {
     query: {},
     options: {
-      select: ['name', 'date_utc', 'links.patch.small', 'success', 'failures', 'details', 'cores', 'payloads'],
+      select: ['name', 'date_utc', 'links.patch.small', 'success', 'failures.reason', 'details', 'cores', 'payloads'],
       populate: [
         {
           path: 'payloads',

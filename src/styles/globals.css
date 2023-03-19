@@ -1,0 +1,29 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: D-DIN, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: 'D-DIN';
+  src: url('../fonts/d-din/D-DIN.otf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'D-DIN';
+  src: url('../fonts/d-din/D-DIN-Bold.otf');
+  font-weight: bold;
+  font-style: normal;
+}
