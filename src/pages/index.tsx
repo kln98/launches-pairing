@@ -2,13 +2,13 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { useEffect } from 'react';
 import styles from '../styles/Home.module.css';
-import { RootState } from '../store';
+import { RootState } from '../store/store';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { getLaunches } from '../store/spaceX/spaceSlice';
 import Card from '../components/card';
 import icon from '../../public/favicon.ico';
 
-export default function Home() {
+const Home = () => {
   const dispatch = useAppDispatch();
   const logo = require('../pages/spacex-logo.svg');
   const launchPayload = useAppSelector((state: RootState) => state.space.launchState?.docs);
@@ -27,6 +27,7 @@ export default function Home() {
       <main className={styles.main}>
         <span className={styles.logo}>
           <Image
+            data-testid="logo"
             priority={true}
             src={logo}
             alt="SpaceX logo"
@@ -39,10 +40,12 @@ export default function Home() {
       <div className={styles.content}>
         <div className={styles.grid}>
           {launchPayload?.map((data, index) => (
-            <Card launch={data} key={index} />
+            <Card data-testid="data" launch={data} key={index} />
           ))}
         </div>
       </div>
     </div>
   );
-}
+};
+
+export default Home;
